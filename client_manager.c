@@ -18,13 +18,20 @@ int ClientManager(void * acceptsd)
 	
 	int mysd; //my socket descriptor
 	int ret;
+	char buffer[1000];
+
+	memset(buffer,0,sizeof(buffer));
 	
 	mysd = *((int *)acceptsd);
 	
 	if (debug) printf("Socket descriptor %d\n\nWaiting fo data..\n",mysd);
 
-	//SERVE YOUR CLIENT HERE
+	//SERVE YOUR CLIENT HERE, this is just a dirty example, the server prints back to client the buffer received
 	
+	ret = recv(mysd,buffer,sizeof(buffer),0);
+	send(mysd,&buffer,ret,0);
+	close(mysd);
+
 	//Set return code
 	ret = 0;
 
